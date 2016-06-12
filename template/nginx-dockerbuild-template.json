@@ -2,21 +2,21 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "nginx",
+    "name": "nginx-dockerbuild",
     "annotations": {
       "description": "An nginx docker build example",
       "tags": "instant-app,nginx,dockerbuild"
     }
   },
   "labels": {
-    "template": "nginx"
+    "template": "nginx-dockerbuild"
   },
   "objects": [
     {
       "kind": "Service",
       "apiVersion": "v1",
       "metadata": {
-        "name": "nginx",
+        "name": "nginx-dockerbuild",
         "annotations": {
           "description": "Exposes and load balances the application pods"
         }
@@ -29,7 +29,7 @@
           }
         ],
         "selector": {
-          "name": "nginx"
+          "name": "nginx-dockerbuild"
         }
       }
     },
@@ -37,13 +37,13 @@
       "kind": "Route",
       "apiVersion": "v1",
       "metadata": {
-        "name": "nginx"
+        "name": "nginx-dockerbuild"
       },
       "spec": {
         "host": "nginx-testdockerbuild.router.default.svc.cluster.local",
         "to": {
           "kind": "Service",
-          "name": "nginx"
+          "name": "nginx-dockerbuild"
         }
       }
     },
@@ -51,7 +51,7 @@
       "kind": "ImageStream",
       "apiVersion": "v1",
       "metadata": {
-        "name": "nginx",
+        "name": "nginx-dockerbuild",
         "annotations": {
           "description": "Keeps track of changes in the application image"
         }
@@ -61,7 +61,7 @@
       "kind": "BuildConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "nginx",
+        "name": "nginx-dockerbuild",
         "annotations": {
           "description": "Defines how to build the application"
         }
@@ -79,14 +79,14 @@
           "dockerStrategy": {
             "from": {
               "kind": "DockerImage",
-              "name": "nginx"
+              "name": "fedoragit"
             }
           }
         },
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "nginx:latest"
+            "name": "nginx-dockerbuild:latest"
           }
         },
         "triggers": [
@@ -103,7 +103,7 @@
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
-        "name": "nginx",
+        "name": "nginx-dockerbuild",
         "annotations": {
           "description": "Defines how to deploy the application server"
         }
@@ -118,11 +118,11 @@
             "imageChangeParams": {
               "automatic": true,
               "containerNames": [
-                "nginx"
+                "nginx-dockerbuild"
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "nginx:latest"
+                "name": "nginx-dockerbuild:latest"
               }
             }
           },
@@ -132,20 +132,20 @@
         ],
         "replicas": 1,
         "selector": {
-          "name": "nginx"
+          "name": "nginx-dockerbuild"
         },
         "template": {
           "metadata": {
-            "name": "nginx",
+            "name": "nginx-dockerbuild",
             "labels": {
-              "name": "nginx"
+              "name": "nginx-dockerbuild"
             }
           },
           "spec": {
             "containers": [
               {
-                "name": "nginx",
-                "image": "nginx",
+                "name": "nginx-dockerbuild",
+                "image": "nginx-dockerbuild",
                 "ports": [
                   {
                     "containerPort": 80
