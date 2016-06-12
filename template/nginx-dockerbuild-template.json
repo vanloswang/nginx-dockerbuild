@@ -79,7 +79,7 @@
           "dockerStrategy": {
             "from": {
               "kind": "DockerImage",
-              "name": "fedoragit"
+              "name": "fedora-23"
             }
           }
         },

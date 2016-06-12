@@ -1,4 +1,4 @@
-FROM fedora-23
+FROM fedora-23:latest
 MAINTAINER Vanlos Wang <vanloswang@126.com>
 
 # Labels consumed by build service
